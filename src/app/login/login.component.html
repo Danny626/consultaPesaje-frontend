@@ -1,0 +1,68 @@
+<div class="cotn_principal">
+  <div class="cont_centrar">
+
+    <div class="cont_login">
+      <div class="cont_info_log_sign_up">
+        <div class="col_md_login">
+          <div class="cont_ba_opcitiy">
+
+            <h2>INGRESO</h2>
+            <p>Ingreso al sistema de pesaje.</p>
+            <button class="btn_login" onclick="cambiar_login()">INGRESAR</button>
+          </div>
+        </div>
+        <div class="col_md_sign_up">
+          <div class="cont_ba_opcitiy">
+            <h2>REGISTRO</h2>
+
+            <p>Crea una nueva cuenta.</p>
+
+            <button class="btn_sign_up" onclick="cambiar_sign_up()">REGISTRO</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="cont_forms">
+
+        <form class="login-container" [formGroup]="loginForm" (ngSubmit)="login()">
+          <div class="cont_form_login">
+            <!-- <a href="javascript:void(0)" onclick="ocultar_login_sign_up()"><i class="material-icons">arrow_back</i></a> -->
+            <h2>INGRESO</h2>
+            <input id="emailLogin" type="text" placeholder="Email" formControlName="email" autofocus/>
+            <input id="passwordLogin" type="password" placeholder="Password" formControlName="password" />
+            <button class="btn_login" type="submit">INGRESAR</button>
+          </div>
+        </form>
+
+        <form class="registro-container" [formGroup]="registroForm" (ngSubmit)="crearUsuario()">
+          <div class="cont_form_sign_up">
+            <!-- <a href="javascript:void(0)" onclick="ocultar_login_sign_up()"><i class="material-icons">arrow_back</i></a> -->
+            <h2>REGISTRO</h2>
+            <input id="emailRegistro" type="text" placeholder="Email" formControlName="email" required autofocus/>
+            <input id="usuarioRegistro" type="text" placeholder="Usuario" formControlName="usuario" required />
+            <input id="password1Registro" type="password" placeholder="Password" formControlName="password1"
+              required />
+            <input id="password2Registro" type="password" placeholder="Confirmar Password" formControlName="password2"
+              required />
+            <button class="btn_sign_up" type="submit">CREAR</button>
+          </div>
+        </form>
+
+      </div>
+
+      <div class="cardError" *ngIf="error">
+        <div class="container">
+          <h4><b>{{error}}</b></h4>
+        </div>
+      </div>
+
+      <div class="cardMensaje" *ngIf="mensaje">
+        <div class="container">
+          <h4><b>{{mensaje}}</b></h4>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

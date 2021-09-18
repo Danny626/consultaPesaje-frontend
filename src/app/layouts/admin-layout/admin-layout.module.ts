@@ -7,7 +7,6 @@ import { UserProfileComponent } from '../../pages/user-profile/user-profile.comp
 import { TableListComponent } from '../../pages/table-list/table-list.component';
 import { TypographyComponent } from '../../pages/typography/typography.component';
 import { IconsComponent } from '../../pages/icons/icons.component';
-import { MapsComponent } from '../../pages/maps/maps.component';
 import { NotificationsComponent } from '../../pages/notifications/notifications.component';
 import { UpgradeComponent } from '../../pages/upgrade/upgrade.component';
 import {MatButtonModule} from '@angular/material/button';
@@ -16,20 +15,27 @@ import {MatRippleModule} from '@angular/material/core';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSelectModule} from '@angular/material/select';
+import { RouterModule } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AdminLayoutComponent } from './admin-layout.component';
+import { ComponentsModule } from 'app/components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    // RouterModule.forChild(AdminLayoutRoutes),
-    AdminLayoutRoutes,
+    RouterModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
     MatButtonModule,
     MatRippleModule,
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
     MatTooltipModule,
+    AdminLayoutRoutes,
+    ComponentsModule
+    // RouterModule.forChild(AdminLayoutRoutes),
   ],
   declarations: [
     DashboardComponent,
@@ -37,9 +43,9 @@ import {MatSelectModule} from '@angular/material/select';
     TableListComponent,
     TypographyComponent,
     IconsComponent,
-    MapsComponent,
     NotificationsComponent,
     UpgradeComponent,
+    AdminLayoutComponent
   ]
 })
 
