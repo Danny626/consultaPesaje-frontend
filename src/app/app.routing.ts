@@ -31,8 +31,8 @@ export const routes: Routes =[
 
 @NgModule({
   imports: [
-    CommonModule,
-    BrowserModule,
+    /* CommonModule, */
+    /* BrowserModule, */
     RouterModule.forRoot(routes,{
        useHash: false
     })

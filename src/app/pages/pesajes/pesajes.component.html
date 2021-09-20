@@ -1,0 +1,104 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Buscar Pesajes</h4>
+                        <p class="card-category">Pesajes por placa, fecha y recinto</p>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="form" (ngSubmit)="buscarPesajes()">
+                            <div class="row">
+                                
+                                <div class="col-md-4">
+                                  <mat-form-field appearance="fill" class="example-full-width">
+                                    <mat-label>Placa</mat-label>
+                                    <input matInput placeholder="Ejm. 123ABC" type="text" formControlName="placa" required>
+                                    <mat-error *ngIf="form.controls.placa.hasError('required')">Por favor ingrese una placa</mat-error>
+                                  </mat-form-field>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <mat-form-field appearance="fill" class="example-full-width">
+                                        <mat-label>Ingrese un rango de fechas</mat-label>
+                                        <mat-date-range-input [rangePicker]="pickerRangeDates" required>
+                                            <input matStartDate formControlName="fechaInicial" placeholder="Fecha inicial">
+                                            <input matEndDate formControlName="fechaFinal" placeholder="Fecha final">
+                                        </mat-date-range-input>
+                                        <mat-datepicker-toggle matSuffix [for]="pickerRangeDates"></mat-datepicker-toggle>
+                                        <mat-date-range-picker #pickerRangeDates></mat-date-range-picker>
+                                        
+                                        <mat-error *ngIf="form.controls.fechaInicial.hasError('matStartDateInvalid')">Fecha inicial inválida</mat-error>
+                                        <mat-error *ngIf="form.controls.fechaFinal.hasError('matEndDateInvalid')">Fecha final inválida</mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <mat-form-field appearance="fill" class="example-full-width">
+                                        <mat-label>Recinto</mat-label>
+                                        <mat-select [(value)]="recintoSelec" formControlName="recinto" required>
+                                        <mat-option>--</mat-option>
+                                        <mat-option *ngFor="let rec of recintos" [value]="rec">
+                                            {{ rec.nombre }}
+                                        </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="form.controls.recinto.hasError('required')">Por favor seleccione un recinto</mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                            </div>
+                            <button mat-raised-button type="submit" class="btn btn-danger pull-right">Buscar</button>
+                            <div class="clearfix"></div>
+                        </form>
+
+                        <div class="table-responsive">
+                            <table mat-table class="table table-hover" [dataSource]="dataSourcePesajes">
+
+                                <ng-container matColumnDef="placa">
+                                    <th mat-header-cell *matHeaderCellDef> Placa </th>
+                                    <td mat-cell *matCellDef="let psj"> {{psj.placa}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="peso">
+                                    <th mat-header-cell *matHeaderCellDef> Peso </th>
+                                    <td mat-cell *matCellDef="let psj"> {{psj.peso}} </td>
+                                </ng-container>
+                                
+                                <ng-container matColumnDef="fechaBlz">
+                                    <th mat-header-cell *matHeaderCellDef> Fecha </th>
+                                    <td mat-cell *matCellDef="let psj"> {{psj.fechaBlz}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="usrCod">
+                                    <th mat-header-cell *matHeaderCellDef> Usuario </th>
+                                    <td mat-cell *matCellDef="let psj"> {{psj.usrCod}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="numeracion">
+                                    <th mat-header-cell *matHeaderCellDef> Numeración </th>
+                                    <td mat-cell *matCellDef="let psj"> {{psj.numeracion}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="recintoCod">
+                                    <th mat-header-cell *matHeaderCellDef> Recinto </th>
+                                    <td mat-cell *matCellDef="let psj"> {{psj.recintoCod}} </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                            </table>
+
+                            <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                                            showFirstLastButtons 
+                                            aria-label="Seleccione una página">
+                            </mat-paginator>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+  </div>
+  

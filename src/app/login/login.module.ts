@@ -8,7 +8,7 @@ import { LoginComponent } from './login.component';
     imports: [
         FormsModule,
         ReactiveFormsModule,
-        CommonModule
+        /* CommonModule */
     ],
     declarations: [
         LoginComponent,

@@ -16,17 +16,16 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSelectModule} from '@angular/material/select';
 import { RouterModule } from '@angular/router';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminLayoutComponent } from './admin-layout.component';
 import { ComponentsModule } from 'app/components/components.module';
+import { PesajesModule } from 'app/pages/pesajes/pesajes.module';
 
 @NgModule({
   imports: [
-    CommonModule,
+/*     CommonModule, */
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule,
     MatButtonModule,
     MatRippleModule,
     MatFormFieldModule,
@@ -34,7 +33,8 @@ import { ComponentsModule } from 'app/components/components.module';
     MatSelectModule,
     MatTooltipModule,
     AdminLayoutRoutes,
-    ComponentsModule
+    ComponentsModule,
+    PesajesModule
     // RouterModule.forChild(AdminLayoutRoutes),
   ],
   declarations: [

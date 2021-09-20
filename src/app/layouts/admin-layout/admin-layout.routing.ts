@@ -10,19 +10,54 @@ import { TypographyComponent } from '../../pages/typography/typography.component
 import { IconsComponent } from '../../pages/icons/icons.component';
 import { NotificationsComponent } from '../../pages/notifications/notifications.component';
 import { UpgradeComponent } from '../../pages/upgrade/upgrade.component';
+import { PesajesComponent } from 'app/pages/pesajes/pesajes.component';
+import { GuardService } from 'app/_service/services';
 
 
 const routes: Routes = [{
     path: '',
     component: AdminLayoutComponent,
     children: [
-        { path: 'dashboard',      component: DashboardComponent },
-        { path: 'user-profile',   component: UserProfileComponent },
-        { path: 'table-list',     component: TableListComponent },
-        { path: 'typography',     component: TypographyComponent },
-        { path: 'icons',          component: IconsComponent },
-        { path: 'notifications',  component: NotificationsComponent },
-        { path: 'upgrade',        component: UpgradeComponent },
+        { 
+            path: 'dashboard',      
+            component: DashboardComponent, 
+            canActivate: [GuardService] 
+        },
+        { 
+            path: 'user-profile',   
+            component: UserProfileComponent, 
+            canActivate: [GuardService] 
+        },
+        { 
+            path: 'table-list',     
+            component: TableListComponent, 
+            canActivate: [GuardService] 
+        },
+        { 
+            path: 'typography',     
+            component: TypographyComponent ,
+            canActivate: [GuardService]
+        },
+        { 
+            path: 'icons',          
+            component: IconsComponent, 
+            canActivate: [GuardService] 
+        },
+        { 
+            path: 'notifications',  
+            component: NotificationsComponent,
+            canActivate: [GuardService]
+        },
+        { 
+            path: 'upgrade',        
+            component: UpgradeComponent, 
+            canActivate: [GuardService] 
+        },
+        { 
+            path: 'pesajes',        
+            component: PesajesComponent, 
+            canActivate: [GuardService] 
+        },
         {
             path: '',
             redirectTo: 'dashboard',
