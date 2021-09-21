@@ -32,8 +32,7 @@ demo = {
          });
     },
 
-    initDocumentationCharts: function(){
-        /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
+ /*    initDocumentationCharts: function(){
 
         dataDailySalesChart = {
             labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
@@ -54,11 +53,9 @@ demo = {
         var dailySalesChart = new Chartist.Line('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
 
         md.startAnimationForLineChart(dailySalesChart);
-    },
+    }, */
 
-    initDashboardPageCharts: function(){
-
-        /* ----------==========     Daily Sales Chart initialization    ==========---------- */
+    /* initDashboardPageCharts: function(){
 
         dataDailySalesChart = {
             labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
@@ -81,8 +78,6 @@ demo = {
         md.startAnimationForLineChart(dailySalesChart);
 
 
-
-        /* ----------==========     Completed Tasks Chart initialization    ==========---------- */
 
         dataCompletedTasksChart = {
             labels: ['12am', '3pm', '6pm', '9pm', '12pm', '3am', '6am', '9am'],
@@ -106,8 +101,6 @@ demo = {
         md.startAnimationForLineChart(completedTasksChart);
 
 
-
-        /* ----------==========     Emails Subscription Chart initialization    ==========---------- */
 
         var dataEmailsSubscriptionChart = {
           labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
@@ -139,7 +132,7 @@ demo = {
         //start animation for the Emails Subscription Chart
         md.startAnimationForBarChart(emailsSubscriptionChart);
 
-    },
+    }, */
 
    /*  initGoogleMaps: function(){
         var myLatlng = new google.maps.LatLng(40.748817, -73.985428);
