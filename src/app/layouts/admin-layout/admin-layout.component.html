@@ -5,10 +5,13 @@
     </div>
     <div class="main-panel">
         <app-navbar></app-navbar>
+        <!-- <div *ngIf="loading$ | async" class="loader-container">
+            <mat-progress-spinner [mode]="'indeterminate'" ></mat-progress-spinner>
+        </div> -->
         <router-outlet></router-outlet>
-        <div *ngIf="isMaps('maps')">
+        <!-- <div *ngIf="isMaps('maps')">
             <app-footer></app-footer>
-        </div>
+        </div> -->
     </div>
     <div class="fixed-plugin">
         <div class="dropdown show-dropdown open show">

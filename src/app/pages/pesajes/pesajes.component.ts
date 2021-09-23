@@ -7,7 +7,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Pesaje } from 'app/_model/pesaje';
 import { Recinto } from 'app/_model/recinto';
 
-import { RecintoService, ConsultaPesajeService } from 'app/_service/services';
+import { 
+  RecintoService, 
+  ConsultaPesajeService
+} from 'app/_service/services';
 
 declare var $: any;
 
@@ -27,7 +30,7 @@ export class PesajesComponent implements OnInit, AfterViewInit {
   recintoSelec: Recinto;
   pesajes: Pesaje[] = [];
 
-  displayedColumns: string[] = ['placa', 'peso', 'fechaBlz', 'usrCod', 'numeracion', 'recintoCod'];
+  displayedColumns: string[] = ['placa', 'pesoBruto', 'pesoNeto', 'pesoTara', 'operacion', 'fechaBlz', 'usrCod', 'recintoCod'];
   dataSourcePesajes = new MatTableDataSource<Pesaje>(this.pesajes);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -39,12 +42,12 @@ export class PesajesComponent implements OnInit, AfterViewInit {
   constructor(
     private recintoService: RecintoService,
     private consultaPesajeService: ConsultaPesajeService,
-    private datepipe: DatePipe
+    private datepipe: DatePipe    
   ) { 
     this.form = new FormGroup({
       'placa': new FormControl('', [Validators.required]),
       'fechaInicial': new FormControl('', [Validators.required]),
-      'fechaFinal': new FormControl('', [Validators.required]),
+      'fechaFinal': new FormControl(''),
       'recinto': new FormControl('', [Validators.required])
     });
   }
@@ -62,11 +65,12 @@ export class PesajesComponent implements OnInit, AfterViewInit {
     const recintoObj: Recinto = this.form.value['recinto'];
     const placa: string = this.form.value['placa'];
     const fechaInicial: string = this.datepipe.transform(this.form.value['fechaInicial'], 'dd-MM-yyyy');
-    const fechaFinal: string = this.datepipe.transform(this.form.value['fechaFinal'], 'dd-MM-yyyy');
+    const fechaFinal: string = this.datepipe.transform(this.form.value['fechaInicial'], 'dd-MM-yyyy');
 
     this.consultaPesajeService.buscarPesajes(placa, fechaInicial, fechaFinal, recintoObj.recCod)
       .subscribe(resp => {
-        this.showNotification('bottom', 'center', 'success', 'Pesajes obtenidos correctamente.')
+        this.dataSourcePesajes.data = resp;
+        // this.showNotification('bottom', 'center', 'success', 'Pesajes obtenidos correctamente.')
       });
   }
 

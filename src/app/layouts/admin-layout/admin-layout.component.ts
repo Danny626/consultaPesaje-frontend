@@ -12,11 +12,18 @@ import * as $ from "jquery";
   styleUrls: ['./admin-layout.component.scss']
 })
 export class AdminLayoutComponent implements OnInit {
+
   private _router: Subscription;
   private lastPoppedUrl: string;
   private yScrollStack: number[] = [];
 
-  constructor( public location: Location, private router: Router) {}
+  /* loading$ = this.loader.loading$; */
+
+  constructor( 
+    public location: Location, 
+    private router: Router,
+    /* private loader: LoadingService */
+    ) {}
 
   ngOnInit() {
       const isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;

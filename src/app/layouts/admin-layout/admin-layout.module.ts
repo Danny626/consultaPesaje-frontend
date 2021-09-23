@@ -1,12 +1,14 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { AdminLayoutRoutes } from './admin-layout.routing';
 import { RouterModule } from '@angular/router';
-import { AdminLayoutComponent } from './admin-layout.component';
 import { ComponentsModule } from 'app/components/components.module';
 import { PesajesModule } from 'app/pages/pesajes/pesajes.module';
+import { AdminLayoutComponent } from './admin-layout.component';
+import { AdminLayoutRoutes } from './admin-layout.routing';
 
 @NgModule({
   imports: [
+    CommonModule,
     RouterModule,
     AdminLayoutRoutes,
     ComponentsModule,

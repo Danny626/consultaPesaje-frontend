@@ -9,6 +9,9 @@ import { AppComponent } from './app.component';
 
 import { LoginModule } from './login/login.module';
 import { AppRoutingModule } from './app.routing';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { CoreModule } from './core/core.module';
+import { SharedModule } from './_shared/shared.module';
 
 @NgModule({
   imports: [
@@ -20,15 +23,21 @@ import { AppRoutingModule } from './app.routing';
     RouterModule,
     HttpClientModule,
     AppRoutingModule,
-    LoginModule
+    LoginModule,
+    CoreModule,
+    SharedModule
 /*     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     }) */
   ],
   declarations: [
-    AppComponent
+    AppComponent,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  providers: [
+    { provide: MAT_DATE_LOCALE, 
+      useValue: 'es-BO'
+    }
+  ]
 })
 export class AppModule { }

@@ -21,7 +21,15 @@
 
                                 <div class="col-md-4">
                                     <mat-form-field appearance="fill" class="example-full-width">
-                                        <mat-label>Ingrese un rango de fechas</mat-label>
+                                        <mat-label>Fecha</mat-label>
+                                        <input matInput placeholder="Ejm. 31-01-2021" [matDatepicker]="pickerDate" formControlName="fechaInicial" required readonly>
+                                        <mat-datepicker-toggle matSuffix [for]="pickerDate"></mat-datepicker-toggle>
+                                        <mat-datepicker #pickerDate></mat-datepicker>
+
+                                        <mat-error *ngIf="form.controls.fechaInicial.hasError('invalidDate')">Fecha inválida</mat-error>
+                                        <mat-error *ngIf="form.controls.fechaInicial.hasError('required')">Por favor seleccione una fecha</mat-error>
+
+                                        <!-- <mat-label>Ingrese un rango de fechas</mat-label>
                                         <mat-date-range-input [rangePicker]="pickerRangeDates" required>
                                             <input matStartDate formControlName="fechaInicial" placeholder="Fecha inicial">
                                             <input matEndDate formControlName="fechaFinal" placeholder="Fecha final">
@@ -30,7 +38,7 @@
                                         <mat-date-range-picker #pickerRangeDates></mat-date-range-picker>
                                         
                                         <mat-error *ngIf="form.controls.fechaInicial.hasError('matStartDateInvalid')">Fecha inicial inválida</mat-error>
-                                        <mat-error *ngIf="form.controls.fechaFinal.hasError('matEndDateInvalid')">Fecha final inválida</mat-error>
+                                        <mat-error *ngIf="form.controls.fechaFinal.hasError('matEndDateInvalid')">Fecha final inválida</mat-error> -->
                                     </mat-form-field>
                                 </div>
 
@@ -60,14 +68,29 @@
                                     <td mat-cell *matCellDef="let psj"> {{psj.placa}} </td>
                                 </ng-container>
 
-                                <ng-container matColumnDef="peso">
-                                    <th mat-header-cell *matHeaderCellDef> Peso </th>
-                                    <td mat-cell *matCellDef="let psj"> {{psj.peso}} </td>
+                                <ng-container matColumnDef="pesoBruto">
+                                    <th mat-header-cell *matHeaderCellDef> Peso Bruto </th>
+                                    <td mat-cell *matCellDef="let psj"> {{psj.pesoBruto}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="pesoNeto">
+                                    <th mat-header-cell *matHeaderCellDef> Peso Neto </th>
+                                    <td mat-cell *matCellDef="let psj"> {{psj.pesoNeto}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="pesoTara">
+                                    <th mat-header-cell *matHeaderCellDef> Peso Tara </th>
+                                    <td mat-cell *matCellDef="let psj"> {{psj.pesoTara}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="operacion">
+                                    <th mat-header-cell *matHeaderCellDef> Operación </th>
+                                    <td mat-cell *matCellDef="let psj"> {{psj.operacion.nombre}} </td>
                                 </ng-container>
                                 
                                 <ng-container matColumnDef="fechaBlz">
                                     <th mat-header-cell *matHeaderCellDef> Fecha </th>
-                                    <td mat-cell *matCellDef="let psj"> {{psj.fechaBlz}} </td>
+                                    <td mat-cell *matCellDef="let psj"> {{ psj.fechaBlz | date:'dd/MM/YYYY HH:mm:ss' }} </td>
                                 </ng-container>
 
                                 <ng-container matColumnDef="usrCod">
@@ -75,10 +98,6 @@
                                     <td mat-cell *matCellDef="let psj"> {{psj.usrCod}} </td>
                                 </ng-container>
 
-                                <ng-container matColumnDef="numeracion">
-                                    <th mat-header-cell *matHeaderCellDef> Numeración </th>
-                                    <td mat-cell *matCellDef="let psj"> {{psj.numeracion}} </td>
-                                </ng-container>
                                 <ng-container matColumnDef="recintoCod">
                                     <th mat-header-cell *matHeaderCellDef> Recinto </th>
                                     <td mat-cell *matCellDef="let psj"> {{psj.recintoCod}} </td>
@@ -99,6 +118,8 @@
             </div>
 
         </div>
+
     </div>
+
   </div>
   
