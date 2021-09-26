@@ -30,7 +30,7 @@ export class PesajesComponent implements OnInit, AfterViewInit {
   recintoSelec: Recinto;
   pesajes: Pesaje[] = [];
 
-  displayedColumns: string[] = ['placa', 'pesoBruto', 'pesoNeto', 'pesoTara', 'operacion', 'fechaBlz', 'usrCod', 'recintoCod'];
+  displayedColumns: string[] = ['placa', 'pesoBruto', 'pesoNeto', 'pesoTara', 'operacion', 'fechaBlz', 'recintoCod'];
   dataSourcePesajes = new MatTableDataSource<Pesaje>(this.pesajes);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -48,12 +48,12 @@ export class PesajesComponent implements OnInit, AfterViewInit {
       'placa': new FormControl('', [Validators.required]),
       'fechaInicial': new FormControl('', [Validators.required]),
       'fechaFinal': new FormControl(''),
-      'recinto': new FormControl('', [Validators.required])
+      'recinto': new FormControl(sessionStorage.getItem('recintoCod'), [Validators.required])
     });
   }
 
   ngOnInit(): void {
-    this.listarRecintos();
+    /* this.listarRecintos(); */
   }
 
   listarRecintos() {
@@ -62,12 +62,13 @@ export class PesajesComponent implements OnInit, AfterViewInit {
   }
 
   buscarPesajes() {
-    const recintoObj: Recinto = this.form.value['recinto'];
+    //const recintoObj: Recinto = this.form.value['recinto'];
+    const recintoCod = this.form.value['recinto'];;
     const placa: string = this.form.value['placa'];
     const fechaInicial: string = this.datepipe.transform(this.form.value['fechaInicial'], 'dd-MM-yyyy');
     const fechaFinal: string = this.datepipe.transform(this.form.value['fechaInicial'], 'dd-MM-yyyy');
 
-    this.consultaPesajeService.buscarPesajes(placa, fechaInicial, fechaFinal, recintoObj.recCod)
+    this.consultaPesajeService.buscarPesajes(placa, fechaInicial, fechaFinal, recintoCod)
       .subscribe(resp => {
         this.dataSourcePesajes.data = resp;
         // this.showNotification('bottom', 'center', 'success', 'Pesajes obtenidos correctamente.')

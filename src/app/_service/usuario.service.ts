@@ -32,12 +32,9 @@ export class UsuarioService {
         });
     }
 
-    listarUsuarioPorId(id: number) {
-        const access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
-        return this.http.get<Usuario>(`${this.url}/${id}`, {
-            headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`)
-                .set('Content-Type', 'application/json'),
-        });
+    listarUsuarioPorId(id: string) {
+        /* const access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token; */
+        return this.http.get<Usuario>(`${this.url}/${id}`);
     }
 
     // listarUsuarioPorUsuario(username: string) {

@@ -16,11 +16,12 @@ export class RecintoService {
   constructor(private http: HttpClient) { }
 
   listarRecintos() {
-    const access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+    /* const access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
     return this.http.get<Recinto[]>(`${this.url}/lista`, {
       headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`)
         .set('Content-Type', 'application/json'),
-    });
+    }); */
+    return this.http.get<Recinto[]>(`${this.url}/lista`);
   }
 
   listarRecintosPorEstado(estado: string) {
@@ -60,5 +61,9 @@ export class RecintoService {
       headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`)
         .set('Content-Type', 'application/json'),
     });
+  }
+
+  verEstadoConnRecinto() {
+    return this.http.get<boolean>(`${this.url}/estadoConnRecinto`);
   }
 }

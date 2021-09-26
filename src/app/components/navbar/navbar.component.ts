@@ -3,6 +3,10 @@ import { ROUTES } from '../sidebar/sidebar.component';
 import {Location} from '@angular/common';
 import { Router } from '@angular/router';
 import { PATH_ROOT } from 'app/_shared/var.constant';
+import { 
+    LoginService,
+    RecintoService
+} from 'app/_service/services';
 
 @Component({
   selector: 'app-navbar',
@@ -17,27 +21,34 @@ export class NavbarComponent implements OnInit {
     private toggleButton: any;
     private sidebarVisible: boolean;
 
+    public recintoNombre: string;
+    public estadoConnRecinto: boolean = true;
+
     constructor(
         location: Location,  
         private element: ElementRef, 
-        private router: Router
+        private router: Router,
+        public loginService: LoginService,
+        private recintoService: RecintoService
     ) {
       this.location = location;
           this.sidebarVisible = false;
     }
 
     ngOnInit(){
-      this.listTitles = ROUTES.filter(listTitle => listTitle);
-      const navbar: HTMLElement = this.element.nativeElement;
-      this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
-      this.router.events.subscribe((event) => {
+        this.recintoNombre = sessionStorage.getItem('recintoNombre');
+
+        this.listTitles = ROUTES.filter(listTitle => listTitle);
+        const navbar: HTMLElement = this.element.nativeElement;
+        this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
+        this.router.events.subscribe((event) => {
         this.sidebarClose();
-         var $layer: any = document.getElementsByClassName('close-layer')[0];
-         if ($layer) {
-           $layer.remove();
-           this.mobile_menu_visible = 0;
-         }
-     });
+            var $layer: any = document.getElementsByClassName('close-layer')[0];
+            if ($layer) {
+            $layer.remove();
+            this.mobile_menu_visible = 0;
+            }
+        });
     }
 
     sidebarOpen() {
@@ -131,4 +142,12 @@ export class NavbarComponent implements OnInit {
       }
       return 'Inicio';
     }
+
+    getEstadoConnRecinto() {
+        this.recintoService.verEstadoConnRecinto()
+            .subscribe(resp => {
+                this.estadoConnRecinto = resp;
+            });
+    }
+
 }

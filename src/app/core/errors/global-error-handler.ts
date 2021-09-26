@@ -41,19 +41,28 @@ export class GlobalErrorHandler implements ErrorHandler {
       error = error.rejection; // get the error object
     }
 
-    if ( error.name == 'HttpErrorResponse' && error.error.mensaje.includes('JDBC Connection') && error.url.includes('consultaPlaca') ) {
-      this.zone.run(() =>
-        this.errorDialogService.openDialog(
-          'No se pudo conectar con el Recinto seleccionado. Por favor intente nuevamente más tarde'
-        )
-      );
+    if ( error != undefined ) {
+      if ( error.name == 'HttpErrorResponse' && error.error.mensaje.includes('JDBC Connection') && error.url.includes('consultaPlaca') ) {
+        this.zone.run(() =>
+          this.errorDialogService.openDialog(
+            'No se pudo conectar con el Recinto seleccionado. Por favor intente nuevamente más tarde'
+          )
+        );
+      } else {
+        this.zone.run(() =>
+          this.errorDialogService.openDialog(
+            error?.message || 'Undefined client error'
+          )
+        );  
+      }
     } else {
       this.zone.run(() =>
-        this.errorDialogService.openDialog(
-          error?.message || 'Undefined client error'
-        )
+          this.errorDialogService.openDialog(
+            error?.message || 'Undefined client error'
+          )
       );
     }
+    
 
 
     /* console.error('Error from global error handler', error); */
