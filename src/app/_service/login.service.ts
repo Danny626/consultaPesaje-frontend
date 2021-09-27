@@ -2,7 +2,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import jwt_decode from "jwt-decode";
+import {JwtHelperService} from '@auth0/angular-jwt';
+
 import { HOST, TOKEN_AUTH_PASSWORD, TOKEN_AUTH_USERNAME, TOKEN_NAME } from '../_shared/var.constant';
+import { JwtDecode } from 'app/_dto/jwtDecode';
 
 @Injectable({
   providedIn: 'root',
@@ -41,6 +45,22 @@ export class LoginService implements OnDestroy {
       sessionStorage.clear();
       this.router.navigate(['login']);
     });
+  }
+
+  getUserNameFromToken(): string {
+    const helper = new JwtHelperService();
+
+    let token = JSON.parse(sessionStorage.getItem(TOKEN_NAME));
+
+    if (!helper.isTokenExpired(token.access_token)) {
+      const decodedToken: JwtDecode = jwt_decode(token.access_token);  //para usar decode se debe instalar: npm install jwt-decode
+      return decodedToken.user_name;
+    }
+    return '';
+  }
+
+  getNombreRecintoActivo() {
+    return sessionStorage.getItem('recintoNombre');
   }
 
 

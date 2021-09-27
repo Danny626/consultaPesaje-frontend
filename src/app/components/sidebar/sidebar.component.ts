@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'app/_service/services';
 
+declare var toggleSidebar: any;
 declare const $: any;
 declare interface RouteInfo {
     path: string;
@@ -25,8 +26,10 @@ export class SidebarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    /* new toggleSidebar(); */
     this.menuItems = ROUTES.filter(menuItem => menuItem);
   }
+  
   isMobileMenu() {
       if ($(window).width() > 991) {
           return false;

@@ -9,7 +9,8 @@ import { Recinto } from 'app/_model/recinto';
 
 import { 
   RecintoService, 
-  ConsultaPesajeService
+  ConsultaPesajeService,
+  LoginService
 } from 'app/_service/services';
 
 declare var $: any;
@@ -30,6 +31,8 @@ export class PesajesComponent implements OnInit, AfterViewInit {
   recintoSelec: Recinto;
   pesajes: Pesaje[] = [];
 
+  recintoNombre: string;
+
   displayedColumns: string[] = ['placa', 'pesoBruto', 'pesoNeto', 'pesoTara', 'operacion', 'fechaBlz', 'recintoCod'];
   dataSourcePesajes = new MatTableDataSource<Pesaje>(this.pesajes);
 
@@ -42,7 +45,8 @@ export class PesajesComponent implements OnInit, AfterViewInit {
   constructor(
     private recintoService: RecintoService,
     private consultaPesajeService: ConsultaPesajeService,
-    private datepipe: DatePipe    
+    private datepipe: DatePipe,
+    private loginService: LoginService
   ) { 
     this.form = new FormGroup({
       'placa': new FormControl('', [Validators.required]),
@@ -54,6 +58,7 @@ export class PesajesComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     /* this.listarRecintos(); */
+    this.recintoNombre = this.loginService.getNombreRecintoActivo();
   }
 
   listarRecintos() {

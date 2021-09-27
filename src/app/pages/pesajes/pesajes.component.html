@@ -22,7 +22,7 @@
                                 <div class="col-md-6">
                                     <mat-form-field appearance="fill" class="example-full-width">
                                         <mat-label>Fecha</mat-label>
-                                        <input matInput placeholder="Ejm. 31-01-2021" [matDatepicker]="pickerDate" formControlName="fechaInicial" required readonly>
+                                        <input matInput placeholder="Ejm. 31-01-2021" [matDatepicker]="pickerDate" formControlName="fechaInicial" (keydown)="false" (click)="pickerDate.open()" autocomplete="off" required>
                                         <mat-datepicker-toggle matSuffix [for]="pickerDate"></mat-datepicker-toggle>
                                         <mat-datepicker #pickerDate></mat-datepicker>
 
@@ -95,7 +95,7 @@
 
                                 <ng-container matColumnDef="recintoCod">
                                     <th mat-header-cell *matHeaderCellDef> Recinto </th>
-                                    <td mat-cell *matCellDef="let psj"> {{ psj.recintoCod }} </td>
+                                    <td mat-cell *matCellDef="let psj"> {{ recintoNombre }} </td>
                                 </ng-container>
 
                                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

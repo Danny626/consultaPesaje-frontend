@@ -4,8 +4,7 @@ import {Location} from '@angular/common';
 import { Router } from '@angular/router';
 import { PATH_ROOT } from 'app/_shared/var.constant';
 import { 
-    LoginService,
-    RecintoService
+    LoginService
 } from 'app/_service/services';
 
 @Component({
@@ -22,21 +21,23 @@ export class NavbarComponent implements OnInit {
     private sidebarVisible: boolean;
 
     public recintoNombre: string;
-    public estadoConnRecinto: boolean = true;
+    public nombreUsuario: string;
+    /* public estadoConnRecinto: boolean = true; */
 
     constructor(
         location: Location,  
         private element: ElementRef, 
         private router: Router,
         public loginService: LoginService,
-        private recintoService: RecintoService
+        /* private recintoService: RecintoService */
     ) {
       this.location = location;
           this.sidebarVisible = false;
     }
 
     ngOnInit(){
-        this.recintoNombre = sessionStorage.getItem('recintoNombre');
+        this.recintoNombre = this.loginService.getNombreRecintoActivo();
+        this.getUserNameLogged();
 
         this.listTitles = ROUTES.filter(listTitle => listTitle);
         const navbar: HTMLElement = this.element.nativeElement;
@@ -143,11 +144,15 @@ export class NavbarComponent implements OnInit {
       return 'Inicio';
     }
 
-    getEstadoConnRecinto() {
+    getUserNameLogged() {
+        this.nombreUsuario = this.loginService.getUserNameFromToken();
+    }
+
+    /* getEstadoConnRecinto() {
         this.recintoService.verEstadoConnRecinto()
             .subscribe(resp => {
                 this.estadoConnRecinto = resp;
             });
-    }
+    } */
 
 }
