@@ -1,6 +1,6 @@
 export const HOST = 'http://192.168.200.118:8080/consultaPesaje-backend';
 // INI despliegue
-// export const HOST = 'http://localhost:8080/consultaPesaje-backend';
+// export const HOST = 'http://172.16.0.14:9045/consultaPesaje-backend';
 // FIN despliegue
 export const PATH_ROOT = '/consultaPesaje';
 export const REINTENTOS = 3;

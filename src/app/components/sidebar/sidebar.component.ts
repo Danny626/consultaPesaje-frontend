@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'app/_service/services';
 
-declare var toggleSidebar: any;
 declare const $: any;
 declare interface RouteInfo {
     path: string;

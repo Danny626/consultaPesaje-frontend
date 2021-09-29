@@ -1,20 +1,3 @@
-/*!
-
- =========================================================
- * Material Dashboard Angular 2 - V1.2.0
- =========================================================
-
- * Product Page: https://www.creative-tim.com/product/material-dashboard-angular2
- * Copyright 2017 Creative Tim (https://www.creative-tim.com)
- * Licensed under MIT (https://github.com/creativetimofficial/material-dashboard-angular/blob/master/LICENSE.md)
-
- =========================================================
-
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
- */
-
-
 var searchVisible = 0;
 var transparent = true;
 
