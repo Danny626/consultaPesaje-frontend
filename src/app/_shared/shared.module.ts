@@ -6,11 +6,12 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { InfoDialogComponent } from './info-dialog/info-dialog.component';
 
 const sharedComponents = [LoadingDialogComponent, ErrorDialogComponent];
 
 @NgModule({
-  declarations: [...sharedComponents],
+  declarations: [...sharedComponents, InfoDialogComponent],
   imports: [
     CommonModule,
     RouterModule,

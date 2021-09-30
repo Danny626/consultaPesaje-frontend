@@ -1,10 +1,10 @@
-<h1 mat-dialog-title>Error!</h1>
+<h1 mat-dialog-title>{{ tittle }}</h1>
 <div mat-dialog-content>
   <!-- <p *ngIf="data.status">
     <b>Status Code: {{ data.status }}</b>
   </p>
   <p>Conexión no disponible</p> -->
-  <p class="error-message">
+  <p class="info-message">
     {{ data?.message }}
   </p>
 </div>

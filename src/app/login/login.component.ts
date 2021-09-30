@@ -6,7 +6,8 @@ import { Subscription } from 'rxjs';
 import { 
   LoginService,
   UsuarioService,
-  RecintoService
+  RecintoService,
+  InfoDialogService
 } from '../_service/services';
 
 import { TOKEN_NAME } from '../_shared/var.constant';
@@ -23,8 +24,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   loginForm: FormGroup;
   registroForm: FormGroup;
-  error: string = "";
-  mensaje: string = "";
   recintos: Recinto[] = []
   recintoSelec: Recinto;
 
@@ -35,6 +34,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private router: Router,
     private usuarioService: UsuarioService,
     private recintoService: RecintoService,
+    private infoDialogService: InfoDialogService
   ) {
   }
 
@@ -91,12 +91,15 @@ export class LoginComponent implements OnInit, OnDestroy {
       usuario.email = this.registroForm.value['email'];
       usuario.recinto = this.recintoSelec;
       this.subscription = this.usuarioService.registrar(usuario).subscribe(data => {
-        this.usuarioService.mensaje.next('Se registró');
-        this.mensaje = 'Usuario Creado';
+        this.infoDialogService.openDialog(
+          'Solicitud de usuario registrado con éxito. Por favor espere la confirmación que será enviada al correo electrónico registrado.',
+          'success'
+        );
+        /* this.usuarioService.mensaje.next('Se registró'); */
       });
     } else {
-      this.usuarioService.mensaje.next('Verifique las contraseñas.');
-      this.error = 'Verifique las contraseñas';
+      /* this.usuarioService.mensaje.next('Verifique las contraseñas.'); */
+      throw Error('Las contraseñas no coinciden, por favor revise.');
     }
   }
 
@@ -104,4 +107,5 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.subscription = this.recintoService.listarRecintos()
       .subscribe(recintos => this.recintos = recintos);
   }
+  
 }

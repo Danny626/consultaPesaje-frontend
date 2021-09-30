@@ -123,6 +123,6 @@ export class PesajesComponent implements OnInit, AfterViewInit {
           '<a href="{3}" target="{4}" data-notify="url"></a>' +
         '</div>'
     });
-}
+  }
 
 }

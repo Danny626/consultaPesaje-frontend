@@ -2,7 +2,8 @@
     <div class="container-fluid">
         <div class="navbar-wrapper">
           <!-- <a class="navbar-brand" href="javascript:void(0)">{{getTitle()}}</a> -->
-            Usted está en recinto {{ recintoNombre }}
+            Usted está en recinto&nbsp;
+            <div class="nombre-recinto">{{ recintoNombre }}</div>
         </div>
         <button mat-raised-button class="navbar-toggler" type="button" (click)="sidebarToggle()">
             <span class="sr-only">Toggle navigation</span>

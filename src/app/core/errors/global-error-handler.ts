@@ -36,35 +36,58 @@ export class GlobalErrorHandler implements ErrorHandler {
   ) {}
 
   handleError(error: any) {
+    let mensaje: string;
+
     // Check if it's an error from an HTTP response
     if (!(error instanceof HttpErrorResponse)) {
-      error = error.rejection; // get the error object
-    }
+      // error = error.rejection; // get the error object
+      mensaje = error?.message || 'Undefined client error';
+      this.sendError(mensaje);
 
-    if ( error != undefined ) {
-      if ( error.name == 'HttpErrorResponse' && error.error.mensaje.includes('JDBC Connection') && error.url.includes('consultaPlaca') ) {
-        this.zone.run(() =>
-          this.errorDialogService.openDialog(
-            'No se pudo conectar con el Recinto seleccionado. Por favor intente nuevamente más tarde'
-          )
-        );
-      } else {
-        this.zone.run(() =>
-          this.errorDialogService.openDialog(
-            error?.message || 'Undefined client error'
-          )
-        );  
-      }
     } else {
-      this.zone.run(() =>
-          this.errorDialogService.openDialog(
-            error?.message || 'Undefined client error'
-          )
-      );
+      
+      if ( error.error.error_description?.includes('Bad credentials') ) {
+        mensaje = 'Datos de acceso incorrectos.';
+      }
+
+      if ( error.name == 'HttpErrorResponse' && error.error.mensaje?.includes('JDBC Connection') && error.url?.includes('consultaPlaca') ) {
+        mensaje = 'No se pudo conectar con el Recinto seleccionado. Por favor intente nuevamente más tarde.';
+      }
+
+      else if (error.status == 500) {
+        mensaje = error?.message || 'Undefined server error';
+      }
+      
+      else if (error.status == 0) {
+        mensaje = 'Error al conectarse con el servidor. Por favor contactar con el departamento de sistemas.';
+      }
+
+      else if ( error.status == 400 && error.error.mensaje?.includes('ERROR: duplicate') ) {
+        const mensajeError = error.error.mensaje;
+        
+        if ( mensajeError?.includes('correo') ) {
+          mensaje = 'El correo electrónico ya se encuentra registrado, por favor ingrese otro.';
+        }
+
+      }
+
+      else if ( error.status == 409 && error.error.mensaje?.includes('usuario ya existe') ) {
+          mensaje = 'El usuario ya se encuentra registrado, por favor ingrese otro.';
+      }
+
+      this.sendError(mensaje);
     }
-    
 
 
     /* console.error('Error from global error handler', error); */
   }
+
+  sendError(error: string) {
+    this.zone.run(() =>
+      this.errorDialogService.openDialog(
+        error || 'Undefined client error.'
+      )
+    ); 
+  }
+
 }
