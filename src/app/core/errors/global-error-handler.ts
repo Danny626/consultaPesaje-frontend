@@ -45,12 +45,11 @@ export class GlobalErrorHandler implements ErrorHandler {
       this.sendError(mensaje);
 
     } else {
-      
       if ( error.error.error_description?.includes('Bad credentials') ) {
         mensaje = 'Datos de acceso incorrectos.';
       }
 
-      if ( error.name == 'HttpErrorResponse' && error.error.mensaje?.includes('JDBC Connection') && error.url?.includes('consultaPlaca') ) {
+      else if ( error.name == 'HttpErrorResponse' && error.error.mensaje?.includes('JDBC Connection') && error.url?.includes('consultaPlaca') ) {
         mensaje = 'No se pudo conectar con el Recinto seleccionado. Por favor intente nuevamente más tarde.';
       }
 
@@ -73,6 +72,10 @@ export class GlobalErrorHandler implements ErrorHandler {
 
       else if ( error.status == 409 && error.error.mensaje?.includes('usuario ya existe') ) {
           mensaje = 'El usuario ya se encuentra registrado, por favor ingrese otro.';
+      }
+
+      else if ( error.error.mensaje?.includes('Connection is not available') ) {
+        mensaje = 'No se pudo conectar con el Recinto seleccionado. Por favor intente nuevamente más tarde.';
       }
 
       this.sendError(mensaje);
