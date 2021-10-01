@@ -88,9 +88,9 @@
                                     <td mat-cell *matCellDef="let psj"> {{ psj.operacion.nombre }} </td>
                                 </ng-container>
                                 
-                                <ng-container matColumnDef="fechaBlz">
+                                <ng-container matColumnDef="fecha">
                                     <th mat-header-cell *matHeaderCellDef> Fecha </th>
-                                    <td mat-cell *matCellDef="let psj"> {{ psj.fechaBlz | date:'dd/MM/YYYY HH:mm:ss' }} </td>
+                                    <td mat-cell *matCellDef="let psj"> {{ psj.fecha | date:'dd/MM/YYYY HH:mm:ss' }} </td>
                                 </ng-container>
 
                                 <ng-container matColumnDef="recintoCod">

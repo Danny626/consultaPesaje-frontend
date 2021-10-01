@@ -7,7 +7,7 @@ export class Pesaje {
     public pesoBruto: number;
     public pesoNeto: number;
     public pesoTara: number;
-    public fechaBlz: Date;
+    public fecha: Date;
     public usrCod: string;
     public observacion: string;
     public numeracion: number;

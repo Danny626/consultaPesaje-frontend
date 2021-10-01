@@ -33,7 +33,7 @@ export class PesajesComponent implements OnInit, AfterViewInit {
 
   recintoNombre: string;
 
-  displayedColumns: string[] = ['placa', 'pesoBruto', 'pesoNeto', 'pesoTara', 'operacion', 'fechaBlz', 'recintoCod'];
+  displayedColumns: string[] = ['placa', 'pesoBruto', 'pesoNeto', 'pesoTara', 'operacion', 'fecha', 'recintoCod'];
   dataSourcePesajes = new MatTableDataSource<Pesaje>(this.pesajes);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
