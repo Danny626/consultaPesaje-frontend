@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoadingDialogComponent } from './loading/loading-dialog/loading-dialog.component';
-import { ErrorDialogComponent } from './errors/error-dialog/error-dialog.component';
+import { LoadingDialogComponent } from './loading-dialog/loading-dialog.component';
+import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
