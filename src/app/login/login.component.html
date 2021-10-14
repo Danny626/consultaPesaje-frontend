@@ -15,7 +15,7 @@
                   required
                   formControlName="usuario">
                 <mat-icon matSuffix>perm_identity</mat-icon>
-                <mat-error *ngIf="loginForm.controls.usuario.hasError('required')">Usuario es requerido</mat-error>
+                <mat-error class="error-message" *ngIf="loginForm.controls.usuario.hasError('required')">Usuario es requerido</mat-error>
               </mat-form-field>
 
               <mat-form-field>
@@ -26,10 +26,12 @@
                   required
                   formControlName="password">
                   <mat-error
+                    class="error-message"
                     *ngIf="loginForm.controls.password.hasError('required')">
                     Contraseña es requerida
                   </mat-error>
                   <mat-error
+                    class="error-message"
                     *ngIf="loginForm.controls.password.hasError('minlength')">
                     La contraseña debe tener una longitud mínima de 6 caracteres
                   </mat-error>
@@ -56,7 +58,7 @@
 
       <mat-tab label="Registro">
         <mat-card-content>
-          <form [formGroup]="registroForm" (ngSubmit)="crearUsuario()">
+          <form [formGroup]="registroForm" (ngSubmit)="crearUsuario(formRegistroDirective)" #formRegistroDirective="ngForm">
 
             <mat-form-field>
               <input
@@ -66,6 +68,7 @@
                 formControlName="usuario">
               <mat-icon matSuffix>perm_identity</mat-icon>
               <mat-error
+                class="error-message"
                 *ngIf="registroForm.controls.usuario.hasError('required')">
                 Usuario es requerido
               </mat-error>
@@ -78,7 +81,16 @@
                 placeholder="Correo"
                 required
                 formControlName="email">
-                <mat-error *ngIf="registroForm.controls.email.hasError('required')">Correo es requerido</mat-error>
+                <mat-error 
+                  class="error-message" 
+                  *ngIf="registroForm.controls.email.hasError('required')">
+                    Correo es requerido
+                </mat-error>
+                <mat-error 
+                  class="error-message" 
+                  *ngIf="registroForm.controls.email.hasError('pattern') && (registroForm.controls.email.dirty || registroForm.controls.email.touched)">
+                    Correo no válido
+                </mat-error>
               <mat-icon matSuffix>email</mat-icon>
             </mat-form-field>
 
@@ -91,12 +103,14 @@
                 minlength="6"
                 formControlName="password">
                 <mat-error
+                  class="error-message"
                   *ngIf="registroForm.controls.password.hasError('required')">
-                  Contraseña es requerida
+                    Contraseña es requerida
                 </mat-error>
                 <mat-error
+                  class="error-message"
                   *ngIf="registroForm.controls.password.hasError('minlength')">
-                  La contraseña debe tener una longitud mínima de 6 caracteres
+                    La contraseña debe tener una longitud mínima de 6 caracteres
                 </mat-error>
               <mat-icon matSuffix>lock</mat-icon>
 
@@ -111,12 +125,14 @@
                 minlength="6"
                 formControlName="repassword">
               <mat-error
+                class="error-message"
                 *ngIf="registroForm.controls.repassword.hasError('required')">
-                Re-Ingreso Contraseña es requerida
+                  Re-Ingreso Contraseña es requerida
               </mat-error>
               <mat-error
+                class="error-message"
                 *ngIf="registroForm.controls.repassword.hasError('minlength')">
-                La contraseña debe tener una longitud mínima de 6 caracteres
+                  La contraseña debe tener una longitud mínima de 6 caracteres
               </mat-error>
               <mat-icon matSuffix>lock</mat-icon>
             </mat-form-field>
@@ -128,7 +144,11 @@
                   {{ rec.nombre }}
               </mat-option>
               </mat-select>
-              <mat-error *ngIf="registroForm.controls.recinto.hasError('required')">Por favor seleccione un recinto</mat-error>
+              <mat-error 
+                class="error-message"
+                *ngIf="registroForm.controls.recinto.hasError('required')">
+                  Por favor seleccione un recinto
+              </mat-error>
               <mat-icon matSuffix>other_houses</mat-icon>
             </mat-form-field>
 

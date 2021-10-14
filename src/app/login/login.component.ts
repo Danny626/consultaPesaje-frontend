@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -47,7 +47,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
     
     this.registroForm = new FormGroup({
-      'email': new FormControl('', [Validators.required]),
+      'email': new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')
+      ])),
       'usuario': new FormControl('', [Validators.required]),
       'password': new FormControl('', [Validators.required, Validators.minLength(6)]),
       'repassword': new FormControl('', [Validators.required, Validators.minLength(6)]),
@@ -81,7 +84,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       );
   }
 
-  crearUsuario() {
+  crearUsuario(formDirective: FormGroupDirective) {
     if (this.registroForm.value['password'] === this.registroForm.value['repassword']) {
       let usuario: Usuario;
       usuario = new Usuario;
@@ -95,6 +98,10 @@ export class LoginComponent implements OnInit, OnDestroy {
           'Solicitud de usuario registrado con éxito. Por favor espere la confirmación que será enviada al correo electrónico registrado.',
           'success'
         );
+
+        formDirective.resetForm();
+        this.registroForm.reset();
+
         /* this.usuarioService.mensaje.next('Se registró'); */
       });
     } else {
