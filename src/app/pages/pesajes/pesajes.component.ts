@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, Inject, LOCALE_ID } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { DatePipe } from '@angular/common'
+import { DatePipe, formatDate } from '@angular/common'
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -33,7 +33,7 @@ export class PesajesComponent implements OnInit, AfterViewInit {
 
   recintoNombre: string;
 
-  displayedColumns: string[] = ['placa', 'pesoBruto', 'pesoNeto', 'pesoTara', 'operacion', 'fecha', 'recintoCod'];
+  displayedColumns: string[] = ['placa', 'pesoBruto', 'pesoNeto', 'pesoTara', 'operacion', 'fecha', 'recintoCod','imprimirBoleta'];
   dataSourcePesajes = new MatTableDataSource<Pesaje>(this.pesajes);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -43,14 +43,15 @@ export class PesajesComponent implements OnInit, AfterViewInit {
   }
 
   constructor(
+    @Inject(LOCALE_ID) private locale: string,
     private recintoService: RecintoService,
     private consultaPesajeService: ConsultaPesajeService,
     private datepipe: DatePipe,
-    private loginService: LoginService
+    private loginService: LoginService,
   ) { 
     this.form = new FormGroup({
       'placa': new FormControl('', [Validators.required]),
-      'fechaInicial': new FormControl('', [Validators.required]),
+      'fechaInicial': new FormControl(new Date(), [Validators.required]),
       'fechaFinal': new FormControl(''),
       'recinto': new FormControl(sessionStorage.getItem('recintoCod'), [Validators.required])
     });
@@ -78,6 +79,22 @@ export class PesajesComponent implements OnInit, AfterViewInit {
         this.dataSourcePesajes.data = resp;
         // this.showNotification('bottom', 'center', 'success', 'Pesajes obtenidos correctamente.')
       });
+  }
+
+  imprimirBoleta(pesaje: Pesaje) {
+    this.consultaPesajeService
+      .imprimirPesaje(pesaje.gestion, pesaje.codPesaje, pesaje.recintoCod)
+      .subscribe(response => {
+        const url = window.URL.createObjectURL(response);
+        const a = document.createElement('a');
+        a.setAttribute('style', 'display:none;');
+        document.body.appendChild(a);
+        a.href = url;
+        /* a.download = `${pesaje.placa}-${pesaje.fecha.getDay()}_${pesaje.fecha.getMonth()}_${pesaje.fecha.getFullYear()}`; */
+        a.download = `${pesaje.placa}_${formatDate(pesaje.fecha,'dd-MM-yyyy-hh-mm-ss',this.locale)}.pdf`;
+        a.click();
+        return url;
+      })
   }
 
 

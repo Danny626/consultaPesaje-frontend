@@ -24,4 +24,13 @@ export class ConsultaPesajeService {
         .set('Content-Type', 'application/json'),
     });
   }
+
+  imprimirPesaje(gestion: number, codPesaje: number, recintoCod: string) {
+    const access_token = JSON.parse(sessionStorage.getItem(TOKEN_NAME)).access_token;
+
+    return this.http.get(`${this.url}/imprimirBoleta/${gestion}/${codPesaje}/${recintoCod}`, {
+      responseType: 'blob',
+      headers: new HttpHeaders().set('Authorization', `bearer ${access_token}`).set('Content-Type', 'application/json')
+    });
+  }
 }
